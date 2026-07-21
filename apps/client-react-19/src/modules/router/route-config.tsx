@@ -42,6 +42,7 @@ import FormPageWRHF from "@/pages/comps/form/w-react-hook-form/FormPage";
 // catalog
 import ProductsPageWRTK from "@/pages/catalog/product-list-w-rtk-query/ProductsPage";
 import ProductPageWTSQ from "@/pages/catalog/product-list-w-tanstack-query/ProductsPage";
+import ProductPageWTSIQ from "@/pages/catalog/product-list-w-tanstack-infinite-query/ProductsPage";
 import ProductPageWUH from "@/pages/catalog/product-list-w-use-hook/ProductsPage";
 import type { RouteConfig } from "./types";
 // shadcn
@@ -95,6 +96,10 @@ export const routesConfig: RouteConfig[] = [
   {
     path: "/catalog/product-list-w-tanstack-query",
     element: <ProductPageWTSQ />,
+  },
+  {
+    path: "/catalog/product-list-w-tanstack-infinite-query",
+    element: <ProductPageWTSIQ />,
   },
   { path: "/catalog/product-list-w-use-hook", element: <ProductPageWUH /> },
   // shadcn

@@ -142,6 +142,11 @@
           "path": "/catalog/product-list-w-tanstack-query"
         },
         {
+          "label": "Product List w/ TanStack InfiniteQuery",
+          "targets": ["client-react-19"],
+          "path": "/catalog/product-list-w-tanstack-infinite-query"
+        },
+        {
           "label": "Product List w/ use hook",
           "targets": ["client-react-19"],
           "path": "/catalog/product-list-w-use-hook"
