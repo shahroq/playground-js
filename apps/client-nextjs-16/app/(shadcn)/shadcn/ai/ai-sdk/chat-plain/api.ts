@@ -1,14 +1,15 @@
 "use server";
 
 import { generateText, ModelMessage } from "ai";
-import { google } from "@ai-sdk/google";
 import { pause } from "@jsp/shared/utils";
+import { model } from "../models";
 
+// it automatically reads the GOOGLE_GENERATIVE_AI_API_KEY from  root .env and sets it in the request headers
 // const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
 // if (!apiKey) throw new Error("API_KEY is not set");
 
 const options = {
-  model: google("gemini-flash-latest"),
+  model,
   // system: "You are a unhelpful bot, answering questions with a pun.",
   // temperature: 0.5,
   // maxTokens: 20,

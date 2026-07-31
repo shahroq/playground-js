@@ -7,7 +7,8 @@ const page: Page = {
   breadcrumb: [
     { label: "Shadcn" },
     { label: "AI" },
-    { label: "Chat w/ AI SDK" },
+    { label: "AI SDK" },
+    { label: "Chat (Plain)" },
   ],
 };
 

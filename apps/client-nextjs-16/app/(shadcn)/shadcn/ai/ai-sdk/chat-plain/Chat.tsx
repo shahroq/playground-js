@@ -12,10 +12,10 @@ import { Conversation } from "./Conversation";
 import { UIMessage } from "./types";
 
 export function Chat() {
-  const formRef = useRef<HTMLFormElement>(null);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+  useEffect(() => inputRef.current?.focus(), []);
 
-  useEffect(() => textareaRef.current?.focus(), []);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const [state, dispatchAction, isPending] = useActionState(
     updateMessagesReducer,
@@ -40,7 +40,7 @@ export function Chat() {
     setOptimisticMessages(newMessage);
 
     formRef.current?.reset();
-    textareaRef.current?.focus();
+    inputRef.current?.focus();
 
     dispatchAction(newMessage);
   }
@@ -57,8 +57,8 @@ export function Chat() {
               name="msg"
               placeholder=""
               data-slot="input-group-control"
-              ref={textareaRef}
-              defaultValue={""}
+              ref={inputRef}
+              defaultValue={"Hi!"}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
                   e.preventDefault();

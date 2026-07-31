@@ -174,8 +174,18 @@
           "path": "/shadcn/ai/tokenizer"
         },
         {
-          "label": "Chat w/ AI SDK",
-          "path": "/shadcn/ai/chat-w-ai-sdk"
+          "label": "AI SDK",
+          "path": "/shadcn/ai/ai-sdk",
+          "items": [
+            {
+              "label": "Chat (Plain)",
+              "path": "/shadcn/ai/ai-sdk/chat-plain"
+            },
+            {
+              "label": "Chat (useChat)",
+              "path": "/shadcn/ai/ai-sdk/chat-usechat"
+            }
+          ]
         }
       ]
     },
