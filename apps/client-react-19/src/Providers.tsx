@@ -6,8 +6,7 @@ import { type PropsWithChildren } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { RouterProvider } from "@/modules/router";
 import { ErrorFallback } from "./Error";
-
-const isDev = import.meta.env.DEV;
+import { isDev } from "lib/env";
 
 export function Providers({ children }: PropsWithChildren) {
   const app = <RouterProvider>{children}</RouterProvider>;
