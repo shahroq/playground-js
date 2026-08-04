@@ -3,7 +3,6 @@
 import { useMemo } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, ModelInfo } from "ai";
-
 import { ChatInput } from "./ChatInput";
 import { ChatMessages } from "./ChatMessages";
 import {
@@ -61,6 +60,7 @@ export const Chat = ({ modelInfo }: Props) => {
             <ChatInput
               onSend={(text) => sendMessage({ text })}
               status={status}
+              defaultValue="what time is it now?"
             />
           </CardFooter>
         </Card>

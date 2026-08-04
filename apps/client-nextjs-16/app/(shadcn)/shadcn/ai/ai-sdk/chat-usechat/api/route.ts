@@ -5,10 +5,12 @@ import {
   convertToModelMessages,
   createUIMessageStreamResponse,
   toUIMessageStream,
+  isStepCount,
 } from "ai";
 import { getAIModel } from "../../get-model";
 import { isDev } from "@/lib/env";
 import { logToFile } from "@/lib/log-to-file";
+import { timeTool } from "../../tools/time-tool";
 
 const LOG_METHOD: false | "callback" | "stream" = false;
 
@@ -31,6 +33,10 @@ export async function POST(req: NextRequest) {
       if (LOG_METHOD === "callback" && isDev)
         logToFile("[finish]", { text, usage });
     },
+    tools: {
+      time: timeTool,
+    },
+    stopWhen: isStepCount(5),
   });
 
   // Log every part as it streams, without affecting the actual response
