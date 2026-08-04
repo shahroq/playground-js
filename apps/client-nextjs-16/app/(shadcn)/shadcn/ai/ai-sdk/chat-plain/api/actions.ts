@@ -1,5 +1,5 @@
 import { askDummy, askGeminiWPrompt, askGeminiWMessages } from "./api";
-import { UIMessage } from "./types";
+import { UIMessage } from "./../types";
 
 // actions
 export async function updateMessagesReducer(

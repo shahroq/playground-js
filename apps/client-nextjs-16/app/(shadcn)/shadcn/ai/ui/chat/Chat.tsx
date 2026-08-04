@@ -1,4 +1,5 @@
 "use client";
+
 import {
   Card,
   CardContent,
@@ -7,64 +8,42 @@ import {
   CardHeader,
   CardTitle,
 } from "@/shadcn/components/ui/card";
-import TextareaAutosize from "react-textarea-autosize";
-import { ArrowUpIcon, SquareIcon } from "lucide-react";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-} from "@/shadcn/components/ui/input-group";
-import {
-  MessageScroller,
-  MessageScrollerButton,
-  MessageScrollerContent,
-  MessageScrollerProvider,
-  MessageScrollerViewport,
-} from "@/shadcn/components/ui/message-scroller";
+import { MessageScrollerProvider } from "@/shadcn/components/ui/message-scroller";
+import { ChatInput } from "./ChatInput";
+import { ChatMessages } from "./ChatMessages";
+import { getChat } from "../../ai-sdk/get-chat";
 
 export function Chat() {
-  const messages = Array.from(
-    { length: 15 },
-    () => "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  );
+  // messages.splice(0, messages.length); // for testing empty array
+  const messages = getChat(0);
 
   return (
-    <Card className="mx-auto h-full w-full max-w-4xl gap-0 rounded-none">
-      <CardHeader className="gap-1 border-b">
-        <CardTitle>New Chat</CardTitle>
-        <CardDescription>How can I help you today?</CardDescription>
-      </CardHeader>
-
-      <CardContent className="flex min-h-0 flex-1 flex-col gap-3 overflow-hidden border-b">
-        {messages.map((message, i) => (
-          <p key={i}>{message}</p>
-        ))}
-      </CardContent>
-      <CardFooter className="flex-col gap-2">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
-          className="w-full"
+    <MessageScrollerProvider>
+      <div className="flex flex-col gap-4">
+        <Card
+          id="chat"
+          className="flex gap-3 mx-auto w-full -max-w-4xl h-[calc(100dvh-(var(--header-height,4rem)+7rem))] --rounded-none --shadow-none --border-none p4"
         >
-          <InputGroup>
-            <TextareaAutosize
-              data-slot="input-group-control"
-              className="flex field-sizing-content min-h-16 w-full resize-none rounded-md bg-transparent px-3 py-2.5 text-base transition-[color,box-shadow] outline-none md:text-sm"
-              placeholder="Autoresize textarea..."
-            />
-            <InputGroupAddon align="block-end">
-              <InputGroupButton
-                className="ml-auto size-8 rounded-full p-0"
-                size="sm"
-                variant="default"
-              >
-                {1 ? <ArrowUpIcon /> : <SquareIcon />}
-              </InputGroupButton>
-            </InputGroupAddon>
-          </InputGroup>
-        </form>
-      </CardFooter>
-    </Card>
+          {/* header */}
+          <CardHeader className="border-b">
+            <CardTitle>New Chat</CardTitle>
+            <CardDescription>w/ ...</CardDescription>
+          </CardHeader>
+
+          {/* content */}
+          <CardContent
+            id="chat-messages"
+            className="flex flex-col gap-3 flex-1 overflow-y-auto"
+          >
+            <ChatMessages messages={messages} />
+          </CardContent>
+
+          {/* footer */}
+          <CardFooter id="chat-input" className="flex-col gap-3">
+            <ChatInput sendMessage={console.log} />
+          </CardFooter>
+        </Card>
+      </div>
+    </MessageScrollerProvider>
   );
 }

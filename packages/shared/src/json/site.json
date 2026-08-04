@@ -174,27 +174,16 @@
           "path": "/shadcn/ai/tokenizer"
         },
         {
-          "label": "UI",
-          "items": [
-            {
-              "label": "Chat",
-              "path": "/shadcn/ai/ui/chat"
-            }
-          ]
+          "label": "UI: Chat",
+          "path": "/shadcn/ai/ui/chat"
         },
         {
-          "label": "AI SDK",
-          "path": "/shadcn/ai/ai-sdk",
-          "items": [
-            {
-              "label": "Chat (Plain)",
-              "path": "/shadcn/ai/ai-sdk/chat-plain"
-            },
-            {
-              "label": "Chat (useChat)",
-              "path": "/shadcn/ai/ai-sdk/chat-usechat"
-            }
-          ]
+          "label": "AI SDK: Chat (Plain)",
+          "path": "/shadcn/ai/ai-sdk/chat-plain"
+        },
+        {
+          "label": "AI SDK: Chat (useChat)",
+          "path": "/shadcn/ai/ai-sdk/chat-usechat"
         }
       ]
     },

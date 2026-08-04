@@ -1,41 +1,70 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+
+import { useMemo } from "react";
 import { useChat } from "@ai-sdk/react";
-import { DefaultChatTransport } from "ai";
-import { Conversation } from "./Conversation";
+import { DefaultChatTransport, ModelInfo } from "ai";
 
-export function Chat() {
-  const inputRef = useRef<HTMLInputElement>(null);
-  useEffect(() => inputRef.current?.focus(), []);
+import { ChatInput } from "./ChatInput";
+import { ChatMessages } from "./ChatMessages";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/shadcn/components/ui/card";
+import { MessageScrollerProvider } from "@/shadcn/components/ui/message-scroller";
+import { getChat } from "../get-chat";
 
-  const [input, setInput] = useState("Hi");
-  const { messages, sendMessage } = useChat({
-    transport: new DefaultChatTransport({
-      api: "/shadcn/ai/ai-sdk/chat-usechat/api",
-    }),
-  });
-  console.log(messages);
+type Props = {
+  modelInfo: ModelInfo;
+};
+
+export const Chat = ({ modelInfo }: Props) => {
+  const transport = useMemo(
+    () =>
+      new DefaultChatTransport({
+        api: "/shadcn/ai/ai-sdk/chat-usechat/api",
+      }),
+    [],
+  );
+
+  const { messages, sendMessage, status, error } = useChat({ transport });
 
   return (
-    <div className="flex h-full min-h-0 w-full flex-col border">
-      <Conversation messages={messages} />
+    <MessageScrollerProvider>
+      <div className="flex flex-col gap-4">
+        <Card
+          id="chat"
+          className="flex gap-3 mx-auto w-full -max-w-4xl h-[calc(100dvh-(var(--header-height,4rem)+7rem))] --rounded-none --shadow-none --border-none p4"
+        >
+          {/* header */}
+          <CardHeader className="border-b">
+            <CardTitle>New Chat</CardTitle>
+            <CardDescription>
+              w/ {modelInfo.provider}: {modelInfo.modelId}
+            </CardDescription>
+          </CardHeader>
 
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          sendMessage({ text: input });
-          setInput("");
-        }}
-        className="w-full"
-      >
-        <input
-          ref={inputRef}
-          className="w-full dark:bg-zinc-900 p-2 border border-zinc-300 dark:border-zinc-800 rounded shadow-xl"
-          value={input}
-          placeholder="Say something..."
-          onChange={(e) => setInput(e.currentTarget.value)}
-        />
-      </form>
-    </div>
+          <CardContent
+            id="chat-messages"
+            className="flex flex-col gap-3 flex-1 overflow-y-auto"
+          >
+            <ChatMessages
+              messages={[...getChat(10), ...messages]}
+              status={status}
+            />
+          </CardContent>
+
+          <CardFooter id="chat-input">
+            <ChatInput
+              onSend={(text) => sendMessage({ text })}
+              status={status}
+            />
+          </CardFooter>
+        </Card>
+      </div>
+    </MessageScrollerProvider>
   );
-}
+};

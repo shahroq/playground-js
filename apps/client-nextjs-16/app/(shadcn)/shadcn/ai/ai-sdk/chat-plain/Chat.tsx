@@ -1,21 +1,14 @@
 "use client";
 
 import { useActionState, useEffect, useOptimistic, useRef } from "react";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-} from "@/shadcn/components/ui/input-group";
-import TextareaAutosize from "react-textarea-autosize";
-import { updateMessagesReducer } from "./actions";
-import { Conversation } from "./Conversation";
+import { updateMessagesReducer } from "./api/actions";
 import { UIMessage } from "./types";
+import { ChatMessages } from "./ChatMessages";
+import { ChatInput } from "./ChatInput";
 
 export function Chat() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   useEffect(() => inputRef.current?.focus(), []);
-
-  const formRef = useRef<HTMLFormElement>(null);
 
   const [state, dispatchAction, isPending] = useActionState(
     updateMessagesReducer,
@@ -39,46 +32,15 @@ export function Chat() {
 
     setOptimisticMessages(newMessage);
 
-    formRef.current?.reset();
-    inputRef.current?.focus();
-
     dispatchAction(newMessage);
   }
 
   return (
     <div className="flex h-full min-h-0 flex-col justify-end gap-5">
-      <Conversation messages={optimisticMessages} isPending={isPending} />
+      <ChatMessages messages={optimisticMessages} isPending={isPending} />
 
       <section id="input">
-        <form className="grid w-full" ref={formRef} action={formAction}>
-          <InputGroup>
-            <TextareaAutosize
-              className="flex field-sizing-content min-h-16 w-full resize-none rounded-md bg-transparent px-3 py-2.5 text-base transition-[color,box-shadow] outline-none md:text-sm"
-              name="msg"
-              placeholder=""
-              data-slot="input-group-control"
-              ref={inputRef}
-              defaultValue={"Hi!"}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && !e.shiftKey) {
-                  e.preventDefault();
-                  formRef.current?.requestSubmit();
-                }
-              }}
-            />
-            <InputGroupAddon align="block-end">
-              <InputGroupButton
-                className="ml-auto"
-                size="sm"
-                variant="default"
-                type="submit"
-                disabled={isPending}
-              >
-                Send
-              </InputGroupButton>
-            </InputGroupAddon>
-          </InputGroup>
-        </form>
+        <ChatInput onSend={formAction} isPending={isPending} />
       </section>
     </div>
   );
