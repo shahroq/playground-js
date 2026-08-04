@@ -52,7 +52,7 @@ export const Chat = ({ modelInfo }: Props) => {
             className="flex flex-col gap-3 flex-1 overflow-y-auto"
           >
             <ChatMessages
-              messages={[...getChat(10), ...messages]}
+              messages={[...getChat(0), ...messages]}
               status={status}
             />
           </CardContent>

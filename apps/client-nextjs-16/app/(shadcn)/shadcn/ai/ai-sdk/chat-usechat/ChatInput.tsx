@@ -13,12 +13,13 @@ import {
 type Props = {
   onSend: (text: string) => void;
   status: ChatStatus;
+  defaultValue?: string;
 };
 
-export const ChatInput = ({ onSend, status }: Props) => {
+export const ChatInput = ({ onSend, status, defaultValue = "Hi" }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const [input, setInput] = useState("Hi");
+  const [input, setInput] = useState(defaultValue);
 
   useEffect(() => inputRef.current?.focus(), []);
 
