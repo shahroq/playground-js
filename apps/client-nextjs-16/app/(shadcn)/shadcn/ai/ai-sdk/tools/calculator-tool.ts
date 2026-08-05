@@ -2,35 +2,20 @@ import { tool } from "ai";
 import { z } from "zod";
 
 export const calculatorTool = tool({
-  description: "Perform basic arithmetic calculations.",
+  description:
+    "Evaluate mathematical expressions. Use this tool whenever the user asks for calculations.",
 
   inputSchema: z.object({
-    operation: z.enum(["add", "subtract", "multiply", "divide"]),
-    left: z.number(),
-    right: z.number(),
+    expression: z.string().describe("A mathematical expression like 2 + 3 * 5"),
   }),
 
-  execute: async ({ operation, left, right }) => {
-    switch (operation) {
-      case "add":
-        return {
-          result: left + right,
-        };
+  execute: async ({ expression }) => {
+    // Never use eval() on untrusted input in production.
+    const result = Function(`return (${expression})`)();
 
-      case "subtract":
-        return {
-          result: left - right,
-        };
-
-      case "multiply":
-        return {
-          result: left * right,
-        };
-
-      case "divide":
-        return {
-          result: left / right,
-        };
-    }
+    return {
+      expression,
+      result,
+    };
   },
 });
