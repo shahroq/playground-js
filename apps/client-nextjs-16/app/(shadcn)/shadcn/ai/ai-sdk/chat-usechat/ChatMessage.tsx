@@ -1,4 +1,4 @@
-import type { UIMessage, UIMessagePart } from "ai";
+import type { UIMessage } from "ai";
 import { Bubble, BubbleContent } from "@/shadcn/components/ui/bubble";
 import { Message, MessageContent } from "@/shadcn/components/ui/message";
 import ReactMarkdown from "react-markdown";

@@ -14,6 +14,8 @@ import { timeTool } from "../../tools";
 
 // route.ts
 export async function POST(req: NextRequest) {
+  // throw new Error("something went wrong!!!");
+
   const {
     messages,
     systemPrompt,
@@ -31,6 +33,11 @@ export async function POST(req: NextRequest) {
     onFinish({ text, usage }) {
       if (isDev && logFile && logFileMethod === "callback")
         logToFile("[finish]", { text, usage });
+    },
+    onError({ error }) {
+      // surfaces provider/model errors into the UI message stream
+      // instead of failing silently or as a raw 500
+      if (isDev) console.error("[streamText error]", error);
     },
     tools: {
       time: timeTool,

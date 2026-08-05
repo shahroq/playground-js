@@ -14,6 +14,7 @@ import {
 } from "@/shadcn/components/ui/card";
 import { MessageScrollerProvider } from "@/shadcn/components/ui/message-scroller";
 import { getChat } from "../get-chat";
+import { ChatError } from "./ChatError";
 
 type Props = {
   modelInfo: ModelInfo;
@@ -28,16 +29,17 @@ export const Chat = ({ modelInfo }: Props) => {
     [],
   );
 
-  const { messages, sendMessage, status, error } = useChat({
-    transport,
-    onToolCall({ toolCall }) {
-      console.log("----> Tool started:", toolCall);
+  const { messages, sendMessage, status, error, regenerate, clearError } =
+    useChat({
+      transport,
+      onToolCall({ toolCall }) {
+        console.log("----> Tool started:", toolCall);
 
-      if (toolCall.toolName === "time") {
-        // update UI state here
-      }
-    },
-  });
+        if (toolCall.toolName === "time") {
+          // update UI state here
+        }
+      },
+    });
 
   return (
     <MessageScrollerProvider>
@@ -62,6 +64,14 @@ export const Chat = ({ modelInfo }: Props) => {
               messages={[...getChat(0), ...messages]}
               status={status}
             />
+
+            {error && (
+              <ChatError
+                error={error}
+                onRetry={() => regenerate()}
+                onDismiss={() => clearError()}
+              />
+            )}
           </CardContent>
 
           <CardFooter id="chat-input">
