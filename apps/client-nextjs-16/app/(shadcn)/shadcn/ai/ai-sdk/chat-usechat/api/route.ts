@@ -10,7 +10,7 @@ import {
 import { getAIModel } from "../../get-model";
 import { isDev, logFile, logFileMethod } from "@/lib/env";
 import { logToFile } from "@/lib/log-to-file";
-import { timeTool } from "../../tools";
+import { calculatorTool, timeTool } from "../../tools";
 
 // route.ts
 export async function POST(req: NextRequest) {
@@ -41,6 +41,7 @@ export async function POST(req: NextRequest) {
     },
     tools: {
       time: timeTool,
+      calculator: calculatorTool,
     },
     stopWhen: isStepCount(5),
   });

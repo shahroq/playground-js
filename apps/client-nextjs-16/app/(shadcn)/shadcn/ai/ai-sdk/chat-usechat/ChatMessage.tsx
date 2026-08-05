@@ -22,6 +22,8 @@ export const ChatMessage = ({ message }: Props) => {
         return <PartText key={key} part={part} />;
       case "tool-time":
         return <PartToolTime key={key} part={part} />;
+      case "tool-calculator":
+        return <PartToolCalculator key={key} part={part} />;
       case "step-start":
         return null;
       default:
@@ -64,11 +66,33 @@ function PartToolTime({ part }: PropsPartTimeTool) {
       return (
         <pre>
           🕒 Time Tool
+          <br />
           {JSON.stringify(part.output, null, 2)}
         </pre>
       );
 
     default:
       return null;
+  }
+}
+
+type PropsCalculatorTool = {
+  part: Extract<UIMessage["parts"][number], { type: "tool-time" }>;
+};
+
+function PartToolCalculator({ part }: PropsCalculatorTool) {
+  switch (part.state) {
+    case "input-streaming":
+    case "input-available":
+      return <div>🧮 Calculating...</div>;
+
+    case "output-available":
+      return (
+        <pre>
+          🧮 Calculator Tool
+          <br />
+          {JSON.stringify(part.output, null, 2)}
+        </pre>
+      );
   }
 }
