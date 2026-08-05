@@ -6,11 +6,23 @@ import {
   createUIMessageStreamResponse,
   toUIMessageStream,
   isStepCount,
+  ToolSet,
+  InferUITools,
+  UIDataTypes,
 } from "ai";
 import { getAIModel } from "../../get-model";
 import { isDev, logFile, logFileMethod } from "@/lib/env";
 import { logToFile } from "@/lib/log-to-file";
-import { calculatorTool, timeTool } from "../../tools";
+import { calculatorTool, productSearchTool, timeTool } from "../../tools";
+
+const tools = {
+  time: timeTool,
+  calculator: calculatorTool,
+  productSearch: productSearchTool,
+} satisfies ToolSet;
+
+export type ChatTools = InferUITools<typeof tools>;
+export type ChatMessage = UIMessage<never, UIDataTypes, ChatTools>;
 
 // route.ts
 export async function POST(req: NextRequest) {
@@ -39,10 +51,7 @@ export async function POST(req: NextRequest) {
       // instead of failing silently or as a raw 500
       if (isDev) console.error("[streamText error]", error);
     },
-    tools: {
-      time: timeTool,
-      calculator: calculatorTool,
-    },
+    tools,
     stopWhen: isStepCount(5),
   });
 

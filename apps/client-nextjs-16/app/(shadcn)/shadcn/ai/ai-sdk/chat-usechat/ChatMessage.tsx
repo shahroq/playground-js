@@ -24,6 +24,8 @@ export const ChatMessage = ({ message }: Props) => {
         return <PartToolTime key={key} part={part} />;
       case "tool-calculator":
         return <PartToolCalculator key={key} part={part} />;
+      case "tool-productSearch":
+        return <PartToolProductSearch key={key} part={part} />;
       case "step-start":
         return null;
       default:
@@ -94,5 +96,29 @@ function PartToolCalculator({ part }: PropsCalculatorTool) {
           {JSON.stringify(part.output, null, 2)}
         </pre>
       );
+  }
+}
+
+type PropsPartProductSearch = {
+  part: Extract<UIMessage["parts"][number], { type: "tool-productSearch" }>;
+};
+
+function PartToolProductSearch({ part }: PropsPartProductSearch) {
+  switch (part.state) {
+    case "input-streaming":
+    case "input-available":
+      return <div>🔎 Searching products...</div>;
+
+    case "output-available":
+      return (
+        <pre>
+          🛒 Product Search
+          {"\n"}
+          {JSON.stringify(part.output, null, 2)}
+        </pre>
+      );
+
+    default:
+      return null;
   }
 }
