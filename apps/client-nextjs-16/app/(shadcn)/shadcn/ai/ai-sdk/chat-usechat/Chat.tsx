@@ -1,5 +1,4 @@
 "use client";
-
 import { useMemo } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, ModelInfo } from "ai";
@@ -29,7 +28,16 @@ export const Chat = ({ modelInfo }: Props) => {
     [],
   );
 
-  const { messages, sendMessage, status, error } = useChat({ transport });
+  const { messages, sendMessage, status, error } = useChat({
+    transport,
+    onToolCall({ toolCall }) {
+      console.log("----> Tool started:", toolCall);
+
+      if (toolCall.toolName === "time") {
+        // update UI state here
+      }
+    },
+  });
 
   return (
     <MessageScrollerProvider>
