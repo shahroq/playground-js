@@ -8,11 +8,9 @@ import {
   isStepCount,
 } from "ai";
 import { getAIModel } from "../../get-model";
-import { isDev } from "@/lib/env";
+import { isDev, logFile, logFileMethod } from "@/lib/env";
 import { logToFile } from "@/lib/log-to-file";
 import { timeTool } from "../../tools/time-tool";
-
-const LOG_METHOD: false | "callback" | "stream" = false;
 
 // route.ts
 export async function POST(req: NextRequest) {
@@ -27,10 +25,11 @@ export async function POST(req: NextRequest) {
     system,
     messages: await convertToModelMessages(messages),
     onChunk({ chunk }) {
-      if (LOG_METHOD === "callback" && isDev) logToFile("[chunk]", chunk);
+      if (isDev && logFile && logFileMethod === "callback")
+        logToFile("[chunk]", chunk);
     },
     onFinish({ text, usage }) {
-      if (LOG_METHOD === "callback" && isDev)
+      if (isDev && logFile && logFileMethod === "callback")
         logToFile("[finish]", { text, usage });
     },
     tools: {
@@ -40,7 +39,7 @@ export async function POST(req: NextRequest) {
   });
 
   // Log every part as it streams, without affecting the actual response
-  if (LOG_METHOD === "stream" && isDev) {
+  if (isDev && logFile && logFileMethod === "stream") {
     (async () => {
       for await (const part of result.fullStream)
         logToFile("[stream part]", part);

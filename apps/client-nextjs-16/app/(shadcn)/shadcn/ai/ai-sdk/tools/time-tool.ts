@@ -1,5 +1,5 @@
+import { isDev, logFile } from "@/lib/env";
 import { logToFile } from "@/lib/log-to-file";
-import { Json } from "@jsp/shared/comps";
 import { tool } from "ai";
 import { z } from "zod";
 
@@ -20,7 +20,7 @@ export const timeTool = tool({
       timezone: timezone ?? "UTC",
       time: now.toISOString(),
     };
-    // logToFile("[Time Tool Log]", rslt);
+    if (isDev && logFile) logToFile("[Time Tool Log]", rslt);
 
     return rslt;
   },
