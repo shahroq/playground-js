@@ -1,7 +1,7 @@
 import type { UIMessage } from "ai";
 import { Bubble, BubbleContent } from "@/shadcn/components/ui/bubble";
 import { Message, MessageContent } from "@/shadcn/components/ui/message";
-import ReactMarkdown from "react-markdown";
+// import ReactMarkdown from "react-markdown";
 
 type Props = {
   message: UIMessage;
@@ -26,6 +26,8 @@ export const ChatMessage = ({ message }: Props) => {
         return <PartToolCalculator key={key} part={part} />;
       case "tool-productSearch":
         return <PartToolProductSearch key={key} part={part} />;
+      case "tool-weather":
+        return <PartToolWeather key={key} part={part} />;
       case "step-start":
         return null;
       default:
@@ -112,6 +114,30 @@ function PartToolProductSearch({ part }: PropsPartProductSearch) {
         <pre>
           🛒 Product Search
           {"\n"}
+          {JSON.stringify(part.output, null, 2)}
+        </pre>
+      );
+
+    default:
+      return null;
+  }
+}
+
+type PropsPartWeather = {
+  part: Extract<UIMessage["parts"][number], { type: "tool-weather" }>;
+};
+
+function PartToolWeather({ part }: PropsPartWeather) {
+  switch (part.state) {
+    case "input-streaming":
+    case "input-available":
+      return <div>🌤️ Checking weather...</div>;
+
+    case "output-available":
+      return (
+        <pre>
+          🌤️ Weather
+          <br />
           {JSON.stringify(part.output, null, 2)}
         </pre>
       );
