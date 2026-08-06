@@ -2,7 +2,7 @@ import { ToolSet } from "ai";
 import { timeTool } from "./time.tool";
 import { calculatorTool } from "./calculator.tool";
 import { productSearchTool } from "./product-search.tool";
-import { weatherTool } from "./weather.tool";
+import { weatherTool } from "./weather";
 
 const tools = {} as ToolSet;
 

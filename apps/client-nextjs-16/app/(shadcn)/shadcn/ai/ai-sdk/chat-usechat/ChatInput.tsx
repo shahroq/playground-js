@@ -33,8 +33,8 @@ export const ChatInput = ({ onSend, status, defaultValue = "Hi" }: Props) => {
 
   return (
     <form
-      onSubmit={(event) => {
-        event.preventDefault();
+      onSubmit={(e) => {
+        e.preventDefault();
         handleSubmit();
       }}
       className="w-full"

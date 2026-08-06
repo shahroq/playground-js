@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
   }: { messages: UIMessage[]; systemPrompt?: string } = await req.json();
   const system =
     systemPrompt ??
-    "You are a concise, friendly assistant. You have tools available. When the user asks about products, prices, or shopping, you must use the productSearch tool rather than answering from memory.";
+    "You are a concise, friendly assistant. You have tools available. When the user asks about products, prices, or shopping, you must use the productSearch tool rather than answering from memory. When asking about weather use weather tool.";
 
   const result = streamText({
     model: getAIModel(),
@@ -53,8 +53,11 @@ export async function POST(req: NextRequest) {
   // Log every part as it streams, without affecting the actual response
   if (isDev && logFile && logFileMethod === "stream") {
     (async () => {
-      for await (const part of result.fullStream)
-        logToFile("[stream part]", part);
+      for await (const part of result.stream) logToFile("[stream part]", part);
+
+      // log usage:
+      const usageAsJson = JSON.stringify(await result.usage);
+      logToFile("[USAGE]", usageAsJson);
     })();
   }
 
