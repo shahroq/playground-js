@@ -25,7 +25,9 @@ export async function POST(req: NextRequest) {
     messages,
     systemPrompt,
   }: { messages: UIMessage[]; systemPrompt?: string } = await req.json();
-  const system = systemPrompt ?? "You are a concise, friendly assistant.";
+  const system =
+    systemPrompt ??
+    "You are a concise, friendly assistant. You have tools available. When the user asks about products, prices, or shopping, you must use the productSearch tool rather than answering from memory.";
 
   const result = streamText({
     model: getAIModel(),
