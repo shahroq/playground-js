@@ -6,20 +6,13 @@ import {
   createUIMessageStreamResponse,
   toUIMessageStream,
   isStepCount,
-  ToolSet,
   InferUITools,
   UIDataTypes,
 } from "ai";
 import { getAIModel } from "../../get-model";
 import { isDev, logFile, logFileMethod } from "@/lib/env";
 import { logToFile } from "@/lib/log-to-file";
-import { calculatorTool, productSearchTool, timeTool } from "../../tools";
-
-const tools = {
-  time: timeTool,
-  calculator: calculatorTool,
-  productSearch: productSearchTool,
-} satisfies ToolSet;
+import { tools } from "../../tools";
 
 export type ChatTools = InferUITools<typeof tools>;
 export type ChatMessage = UIMessage<never, UIDataTypes, ChatTools>;

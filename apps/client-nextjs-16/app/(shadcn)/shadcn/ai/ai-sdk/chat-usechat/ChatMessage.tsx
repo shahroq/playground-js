@@ -49,7 +49,6 @@ export const ChatMessage = ({ message }: Props) => {
 type PropsPartText = {
   part: Extract<UIMessage["parts"][number], { type: "text" }>;
 };
-
 function PartText({ part }: PropsPartText) {
   return <div>{part.text}</div>;
 }
@@ -57,7 +56,6 @@ function PartText({ part }: PropsPartText) {
 type PropsPartTimeTool = {
   part: Extract<UIMessage["parts"][number], { type: "tool-time" }>;
 };
-
 function PartToolTime({ part }: PropsPartTimeTool) {
   switch (part.state) {
     case "input-streaming":
@@ -79,7 +77,7 @@ function PartToolTime({ part }: PropsPartTimeTool) {
 }
 
 type PropsCalculatorTool = {
-  part: Extract<UIMessage["parts"][number], { type: "tool-time" }>;
+  part: Extract<UIMessage["parts"][number], { type: "tool-calculator" }>;
 };
 
 function PartToolCalculator({ part }: PropsCalculatorTool) {

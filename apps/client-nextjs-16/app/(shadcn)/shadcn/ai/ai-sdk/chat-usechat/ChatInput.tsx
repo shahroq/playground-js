@@ -23,15 +23,19 @@ export const ChatInput = ({ onSend, status, defaultValue = "Hi" }: Props) => {
 
   useEffect(() => inputRef.current?.focus(), []);
 
+  const handleSubmit = () => {
+    const text = input.trim();
+    if (!text) return;
+
+    onSend(text);
+    setInput("");
+  };
+
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        const text = input.trim();
-        if (!text) return;
-
-        onSend(text);
-        setInput("");
+        handleSubmit();
       }}
       className="w-full"
     >
@@ -41,8 +45,14 @@ export const ChatInput = ({ onSend, status, defaultValue = "Hi" }: Props) => {
           className="flex field-sizing-content min-h-16 w-full resize-none rounded-md bg-transparent px-3 py-2.5 text-base transition-[color,box-shadow] outline-none md:text-sm"
           placeholder=""
           value={input}
-          onChange={(e) => setInput(e.target.value)}
           ref={inputRef}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              handleSubmit();
+            }
+          }}
         />
         <InputGroupAddon align="block-end">
           <InputGroupButton
