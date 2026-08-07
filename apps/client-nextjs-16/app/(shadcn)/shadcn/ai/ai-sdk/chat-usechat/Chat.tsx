@@ -33,7 +33,7 @@ export const Chat = ({ modelInfo }: Props) => {
     useChat({
       transport,
       onToolCall({ toolCall }) {
-        console.log("----> Tool started:", toolCall);
+        // console.log("----> Tool started:", toolCall);
 
         if (toolCall.toolName === "time") {
           // update UI state here
@@ -78,7 +78,7 @@ export const Chat = ({ modelInfo }: Props) => {
             <ChatInput
               onSend={(text) => sendMessage({ text })}
               status={status}
-              defaultValue="what time is it now?"
+              defaultValue="hi"
             />
           </CardFooter>
         </Card>

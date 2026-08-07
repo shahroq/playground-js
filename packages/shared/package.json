@@ -13,6 +13,7 @@
   },
   "exports": {
     "./utils": "./src/utils/index.ts",
+    "./utils-server": "./src/utils-server/index.ts",
     "./services": "./src/services/index.ts",
     "./types": "./src/types/index.ts",
     "./validations/*": "./src/validations/*/index.ts",

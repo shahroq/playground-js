@@ -27,7 +27,8 @@ export async function POST(req: NextRequest) {
   }: { messages: UIMessage[]; systemPrompt?: string } = await req.json();
   const system =
     systemPrompt ??
-    "You are a concise, friendly assistant. You have tools available. When the user asks about products, prices, or shopping, you must use the productSearch tool rather than answering from memory. When asking about weather use weather tool.";
+    // "You are a concise, friendly assistant. You have tools available. When the user asks about products, prices, or shopping, you must use the productSearch tool rather than answering from memory. When asking about weather use weather tool.";
+    "You are a concise, friendly assistant. You have tools available.";
 
   const result = streamText({
     model: getAIModel(),
@@ -47,7 +48,7 @@ export async function POST(req: NextRequest) {
       if (isDev) console.error("[streamText error]", error);
     },
     tools,
-    stopWhen: isStepCount(5),
+    stopWhen: isStepCount(10),
   });
 
   // Log every part as it streams, without affecting the actual response
@@ -56,14 +57,25 @@ export async function POST(req: NextRequest) {
       for await (const part of result.stream) logToFile("[stream part]", part);
 
       // log usage:
-      const usageAsJson = JSON.stringify(await result.usage);
-      logToFile("[USAGE]", usageAsJson);
+      const asJson = JSON.stringify(await result.usage);
+      logToFile("[USAGE]", asJson);
     })();
   }
 
-  return createUIMessageStreamResponse({
-    stream: toUIMessageStream({ stream: result.stream }),
+  const res = createUIMessageStreamResponse({
+    stream: toUIMessageStream({
+      stream: result.stream,
+      onError: (error) => {
+        return isDev ? String(error) : "Something went wrong.";
+      },
+      onFinish: (_res) => {
+        // console.dir(_res.messages, { depth: null });
+        // console.log("----STREAM FINISHED----");
+      },
+    }),
   });
+
+  return res;
 }
 
 export async function GET(req: NextRequest) {

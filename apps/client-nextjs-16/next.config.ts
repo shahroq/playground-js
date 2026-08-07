@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   },
   transpilePackages: ["@jsp/shared"],
   // productionBrowserSourceMaps: true, // useful even in prod debugging
+  logging: {},
 };
 
 export default nextConfig;
