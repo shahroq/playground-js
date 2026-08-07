@@ -15,6 +15,7 @@ import {
 import { MessageScrollerProvider } from "@/shadcn/components/ui/message-scroller";
 import { getChat } from "../get-chat";
 import { ChatError } from "./ChatError";
+import { UIMessageApp } from "../types";
 
 type Props = {
   modelInfo: ModelInfo;
@@ -30,7 +31,7 @@ export const Chat = ({ modelInfo }: Props) => {
   );
 
   const { messages, sendMessage, status, error, regenerate, clearError } =
-    useChat({
+    useChat<UIMessageApp>({
       transport,
       onToolCall({ toolCall }) {
         // console.log("----> Tool started:", toolCall);

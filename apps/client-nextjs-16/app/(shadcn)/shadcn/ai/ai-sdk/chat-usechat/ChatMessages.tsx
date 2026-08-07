@@ -1,4 +1,4 @@
-import type { ChatStatus, UIMessage } from "ai";
+import type { ChatStatus } from "ai";
 import { ChatMessage } from "./ChatMessage";
 import {
   MessageScroller,
@@ -8,9 +8,10 @@ import {
 } from "@/shadcn/components/ui/message-scroller";
 import { ChatMarker } from "../../ui/chat/ChatMarker";
 import { ChatEmpty } from "../../ui/chat/ChatEmpty";
+import { UIMessageApp } from "../types";
 
 type Props = {
-  messages: UIMessage[];
+  messages: UIMessageApp[];
   status: ChatStatus;
 };
 

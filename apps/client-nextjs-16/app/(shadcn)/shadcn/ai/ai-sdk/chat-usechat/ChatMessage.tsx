@@ -1,10 +1,10 @@
-import type { UIMessage } from "ai";
 import { Bubble, BubbleContent } from "@/shadcn/components/ui/bubble";
 import { Message, MessageContent } from "@/shadcn/components/ui/message";
+import { UIMessageApp } from "../types";
 // import ReactMarkdown from "react-markdown";
 
 type Props = {
-  message: UIMessage;
+  message: UIMessageApp;
 };
 
 export const ChatMessage = ({ message }: Props) => {
@@ -28,6 +28,14 @@ export const ChatMessage = ({ message }: Props) => {
         return <PartToolProductSearch key={key} part={part} />;
       case "tool-weather":
         return <PartToolWeather key={key} part={part} />;
+      case "tool-fsCreateDirectory":
+      case "tool-fsExists":
+      case "tool-fsDeletePath":
+      case "tool-fsReadFile":
+      case "tool-fsListDirectory":
+      case "tool-fsSearchFiles":
+      case "tool-fsWriteFile":
+        return <PartFS key={key} part={part} />;
       case "step-start":
         return null;
       default:
@@ -49,14 +57,14 @@ export const ChatMessage = ({ message }: Props) => {
 };
 
 type PropsPartText = {
-  part: Extract<UIMessage["parts"][number], { type: "text" }>;
+  part: Extract<UIMessageApp["parts"][number], { type: "text" }>;
 };
 function PartText({ part }: PropsPartText) {
   return <div>{part.text}</div>;
 }
 
 type PropsPartTimeTool = {
-  part: Extract<UIMessage["parts"][number], { type: "tool-time" }>;
+  part: Extract<UIMessageApp["parts"][number], { type: "tool-time" }>;
 };
 function PartToolTime({ part }: PropsPartTimeTool) {
   switch (part.state) {
@@ -79,7 +87,7 @@ function PartToolTime({ part }: PropsPartTimeTool) {
 }
 
 type PropsCalculatorTool = {
-  part: Extract<UIMessage["parts"][number], { type: "tool-calculator" }>;
+  part: Extract<UIMessageApp["parts"][number], { type: "tool-calculator" }>;
 };
 
 function PartToolCalculator({ part }: PropsCalculatorTool) {
@@ -100,7 +108,7 @@ function PartToolCalculator({ part }: PropsCalculatorTool) {
 }
 
 type PropsPartProductSearch = {
-  part: Extract<UIMessage["parts"][number], { type: "tool-productSearch" }>;
+  part: Extract<UIMessageApp["parts"][number], { type: "tool-productSearch" }>;
 };
 
 function PartToolProductSearch({ part }: PropsPartProductSearch) {
@@ -124,7 +132,7 @@ function PartToolProductSearch({ part }: PropsPartProductSearch) {
 }
 
 type PropsPartWeather = {
-  part: Extract<UIMessage["parts"][number], { type: "tool-weather" }>;
+  part: Extract<UIMessageApp["parts"][number], { type: "tool-weather" }>;
 };
 
 function PartToolWeather({ part }: PropsPartWeather) {
@@ -145,4 +153,31 @@ function PartToolWeather({ part }: PropsPartWeather) {
     default:
       return null;
   }
+}
+
+type FSPart = {
+  // part: unknown;
+  part: Extract<
+    UIMessageApp["parts"][number],
+    {
+      type:
+        | "tool-fsCreateDirectory"
+        | "tool-fsExists"
+        | "tool-fsDeletePath"
+        | "tool-fsReadFile"
+        | "tool-fsListDirectory"
+        | "tool-fsSearchFiles"
+        | "tool-fsWriteFile";
+    }
+  >;
+};
+
+function PartFS({ part }: FSPart) {
+  return (
+    <pre>
+      🗄️ File System Tool
+      <br />
+      {JSON.stringify(part, null, 2)}
+    </pre>
+  );
 }
