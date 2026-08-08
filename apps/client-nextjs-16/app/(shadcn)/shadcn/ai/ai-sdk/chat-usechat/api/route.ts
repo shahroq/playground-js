@@ -28,7 +28,8 @@ export async function POST(req: NextRequest) {
   const system =
     systemPrompt ??
     // "You are a concise, friendly assistant. You have tools available. When the user asks about products, prices, or shopping, you must use the productSearch tool rather than answering from memory. When asking about weather use weather tool.";
-    "You are a concise, friendly assistant. You have tools available.";
+    // "You are a concise, friendly assistant. You have tools available.";
+    "You are a concise, friendly assistant.";
 
   const result = streamText({
     model: getAIModel(),
@@ -47,8 +48,8 @@ export async function POST(req: NextRequest) {
       // instead of failing silently or as a raw 500
       if (isDev) console.error("[streamText error]", error);
     },
-    tools,
-    stopWhen: isStepCount(10),
+    // tools,
+    // stopWhen: isStepCount(10),
   });
 
   // Log every part as it streams, without affecting the actual response
