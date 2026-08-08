@@ -16,12 +16,16 @@ import { MessageScrollerProvider } from "@/shadcn/components/ui/message-scroller
 import { getChat } from "../get-chat";
 import { ChatError } from "./ChatError";
 import { UIMessageApp } from "../types";
+import { useSearchParams } from "next/navigation";
 
 type Props = {
   modelInfo: ModelInfo;
 };
 
 export const Chat = ({ modelInfo }: Props) => {
+  const searchParams = useSearchParams();
+  const _chatId = searchParams.get("chatId") ?? crypto.randomUUID();
+
   const transport = useMemo(
     () =>
       new DefaultChatTransport({

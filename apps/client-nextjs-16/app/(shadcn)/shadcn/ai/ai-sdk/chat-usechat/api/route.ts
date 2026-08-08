@@ -69,7 +69,8 @@ export async function POST(req: NextRequest) {
       onError: (error) => {
         return isDev ? String(error) : "Something went wrong.";
       },
-      onFinish: (_res) => {
+      onFinish: (res) => {
+        const { messages, responseMessage } = res;
         // console.dir(_res.messages, { depth: null });
         // console.log("----STREAM FINISHED----");
       },

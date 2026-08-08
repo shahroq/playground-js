@@ -8,15 +8,15 @@ import { fsTools } from "./file-system.tool";
 const tools = {
   time: timeTool,
   calculator: calculatorTool,
-  productSearch: productSearchTool,
-  weather: weatherTool,
-  fsWriteFile: fsTools.writeFile,
-  fsReadFile: fsTools.readFile,
-  fsDeletePath: fsTools.deletePath,
-  fsListDirectory: fsTools.listDirectory,
-  fsCreateDirectory: fsTools.createDirectory,
-  fsExists: fsTools.exists,
-  fsSearchFiles: fsTools.searchFiles,
+  // productSearch: productSearchTool,
+  // weather: weatherTool,
+  // fsWriteFile: fsTools.writeFile,
+  // fsReadFile: fsTools.readFile,
+  // fsDeletePath: fsTools.deletePath,
+  // fsListDirectory: fsTools.listDirectory,
+  // fsCreateDirectory: fsTools.createDirectory,
+  // fsExists: fsTools.exists,
+  // fsSearchFiles: fsTools.searchFiles,
 } satisfies ToolSet;
 
 export { tools };
