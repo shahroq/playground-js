@@ -1,5 +1,5 @@
 import { generateText } from "ai";
-import { getAIModel } from "../get-model";
+import { getAIModel } from "../models";
 
 const prompt = process.env.AI_SDK_PROMPT ?? "Hi!";
 const model = getAIModel();

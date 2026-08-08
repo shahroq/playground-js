@@ -9,12 +9,12 @@ import {
   InferUITools,
   UIDataTypes,
 } from "ai";
-import { getAIModel } from "../../get-model";
+import { getAIModel } from "../../models";
+import { getTools, allTools } from "../../tools";
 import { isDev, logFile, logFileMethod } from "@/lib/env";
 import { logToFile } from "@/lib/log-to-file";
-import { tools } from "../../tools";
 
-export type ChatTools = InferUITools<typeof tools>;
+export type ChatTools = InferUITools<typeof allTools>;
 export type ChatMessage = UIMessage<never, UIDataTypes, ChatTools>;
 
 // route.ts
@@ -25,16 +25,23 @@ export async function POST(req: NextRequest) {
     messages,
     systemPrompt,
   }: { messages: UIMessage[]; systemPrompt?: string } = await req.json();
+
+  const tools = getTools(["time"]);
+  const model = getAIModel();
   const system =
     systemPrompt ??
     // "You are a concise, friendly assistant. You have tools available. When the user asks about products, prices, or shopping, you must use the productSearch tool rather than answering from memory. When asking about weather use weather tool.";
     // "You are a concise, friendly assistant. You have tools available.";
     "You are a concise, friendly assistant.";
 
+  //
   const result = streamText({
-    model: getAIModel(),
+    model,
     system,
+    tools,
     messages: await convertToModelMessages(messages),
+
+    stopWhen: isStepCount(10),
     onChunk({ chunk }) {
       if (isDev && logFile && logFileMethod === "callback")
         logToFile("[chunk]", chunk);
@@ -48,8 +55,6 @@ export async function POST(req: NextRequest) {
       // instead of failing silently or as a raw 500
       if (isDev) console.error("[streamText error]", error);
     },
-    // tools,
-    // stopWhen: isStepCount(10),
   });
 
   // Log every part as it streams, without affecting the actual response

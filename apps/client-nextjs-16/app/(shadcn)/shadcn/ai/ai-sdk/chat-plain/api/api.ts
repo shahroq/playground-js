@@ -2,7 +2,7 @@
 
 import { generateText, ModelMessage } from "ai";
 import { pause } from "@jsp/shared/utils";
-import { getAIModel } from "../../get-model";
+import { getAIModel } from "../../models";
 
 // it automatically reads the GOOGLE_GENERATIVE_AI_API_KEY from  root .env and sets it in the request headers
 // const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
