@@ -9,6 +9,7 @@
     "ui": "bun run --filter './apps/ui' dev",
     "react": "bun run --filter './apps/client-react-19' dev",
     "next": "bun run --filter './apps/client-nextjs-16' dev",
+    "next:clear": "rm -rf ./apps/client-nextjs-16/.next",
     "angular": "bun run --filter './apps/client-angular-21' start",
     "express": "bun run --filter './apps/server-express' start:dev",
     "nest": "bun run --filter './apps/server-nestjs' start:dev",
