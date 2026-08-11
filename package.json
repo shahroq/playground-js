@@ -15,7 +15,9 @@
     "express": "bun run --filter './apps/server-express' start:dev",
     "nest": "bun run --filter './apps/server-nestjs' start:dev",
     "bun-server": "bun run --filter './apps/server-bun' start:dev",
-    "json-server": "bun run --filter './apps/server-json-server' start"
+    "json-server": "bun run --filter './apps/server-json-server' start",
+    "cli": "dotenv -e apps/client-nextjs-16/.env -- bun run 'apps/cli/index.ts'",
+    "cli:watch": "dotenv -e apps/client-nextjs-16/.env -- bun --watch run 'apps/cli/index.ts'"
   },
   "dependencies": {
     "@ai-sdk/google": "^4.0.16",
