@@ -1,5 +1,5 @@
 {
-  "name": "js-playground",
+  "name": "playground-js",
   "module": "index.ts",
   "type": "module",
   "private": true,
