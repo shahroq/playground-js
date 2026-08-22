@@ -28,7 +28,6 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "lowdb": "^7.0.1",
     "morgan": "^1.10.1",
     "nodemailer": "^7.0.11",
     "winston": "^3.19.0"
