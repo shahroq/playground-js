@@ -46,6 +46,7 @@
     "express": "^5.2.1",
     "express-validator": "^7.3.2",
     "fs-extra": "^11.3.5",
+    "hono": "^4.13.3",
     "http-errors": "^2.0.1",
     "joi": "^18.2.1",
     "js-tiktoken": "^1.0.21",
