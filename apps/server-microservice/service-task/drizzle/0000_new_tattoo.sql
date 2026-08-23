@@ -1,6 +1,6 @@
 CREATE TABLE `tasks` (
-	`id` text PRIMARY KEY NOT NULL,
-	`user_id` text NOT NULL,
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`user_id` integer NOT NULL,
 	`title` text NOT NULL,
 	`done` integer DEFAULT false NOT NULL,
 	`created_at` integer NOT NULL

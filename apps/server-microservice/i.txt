@@ -1,0 +1,6 @@
+- chrogeraphy
+- orchestrator
+- durability
+
+db:
+createdb microservices_queue

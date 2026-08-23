@@ -1,0 +1,23 @@
+@baseUrl = http://localhost:3010
+
+### Health check
+GET {{baseUrl}}/health
+
+### Signup
+POST {{baseUrl}}/auth/signup
+Content-Type: application/json
+
+{
+  "email": "user.{{$timestamp}}@email.com"
+}
+
+### LOGIN (paste the id from signup response)
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "userId": 1
+}
+
+### Delete user (orchestrated)
+DELETE {{baseUrl}}/auth/1

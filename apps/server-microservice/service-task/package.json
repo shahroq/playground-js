@@ -1,10 +1,12 @@
 {
-  "name": "service-auth",
+  "name": "service-task",
   "module": "src/index.ts",
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun run --hot src/index.ts",
+    "dev:server": "bun run --hot src/index.ts",
+    "dev:worker": "bun run --hot src/worker.ts",
+    "dev": "bun run --parallel dev:server dev:worker",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate"
   },

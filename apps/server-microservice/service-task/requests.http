@@ -1,17 +1,9 @@
 @baseUrl = http://localhost:3011
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyLTEyMyIsImlhdCI6MTc4NzQwMjE5MCwiZXhwIjoxNzg3NDA1NzkwfQ.fZAhm8p1ddCIDWGFjUiqqiAhvOfc4zjYNwDmXw16x04
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTc4NzY1NzUxNiwiZXhwIjoxNzg3NjYxMTE2fQ.9nWULFpl1KgjYAuXkgchEYiDKETqWkcvjNCV9amL9N0
 
 ### Health check
 GET {{baseUrl}}/health
 
-### Create a task
-POST {{baseUrl}}/tasks
-Content-Type: application/json
-Authorization: Bearer {{token}}
-
-{
-  "title": "learn microservices"
-}
 
 ### List tasks
 GET {{baseUrl}}/tasks
@@ -19,3 +11,12 @@ Authorization: Bearer {{token}}
 
 ### List tasks - no token (should 401)
 GET {{baseUrl}}/tasks
+
+### Create a task
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "learn microservices - {{$timestamp}}"
+}
