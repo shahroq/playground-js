@@ -1,0 +1,31 @@
+@baseUrl = http://localhost:3021
+
+
+### Health check
+GET {{baseUrl}}/
+
+### List users
+GET {{baseUrl}}/users
+
+### Create a user
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "name": "Test User",
+  "email": "user.{{$timestamp}}@email.com",
+  "role": "subscriber"
+}
+
+
+### publish a newsletter
+POST {{baseUrl}}/newsletter
+Content-Type: application/json
+
+{
+  "subject": "Hello subscribers",
+  "body": "This is the newsletter body"
+}
+
+### get status of a newsletter
+GET {{baseUrl}}/newsletter/1
