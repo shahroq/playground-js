@@ -1,7 +1,7 @@
-import { boss } from "../boss";
-import { QUEUES } from "../queues";
-import * as sendNewsletterEmail from "./send-newsletter.handler";
-import * as sendWelcomeEmail from "./send-welcome-email.handler";
+import { boss } from "./boss";
+import { QUEUES } from "./queues";
+import * as sendNewsletterEmail from "./handlers/send-newsletter.handler";
+import * as sendWelcomeEmail from "./handlers/send-welcome-email.handler";
 
 export async function registerWorkers() {
   await boss.createQueue(QUEUES.SEND_NEWSLETTER);

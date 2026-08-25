@@ -1,7 +1,6 @@
 import express, { type Express, type Request, type Response } from "express";
 import { query } from "./common/db/client";
 import { boss } from "./common/queue/boss";
-import { registerWorkers } from "./common/queue/jobs";
 import { QUEUES } from "./common/queue/queues";
 
 const app: Express = express();
@@ -115,11 +114,13 @@ app.get("/newsletter/:id", async (req: Request, res: Response) => {
 });
 
 async function main() {
+  // boss.start() is still required here: send()/insert() need an
+  // active PgBoss instance to write job rows, even though this
+  // process never calls boss.work() and never processes jobs itself.
   await boss.start();
-  await registerWorkers();
 
   const server = app.listen(PORT, () => {
-    console.log(`Example app listening on port ${PORT}`);
+    console.log(`Server listening on port ${PORT}`);
   });
 
   const shutdown = async () => {
