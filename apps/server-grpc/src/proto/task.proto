@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package task;
+
+service TaskService {
+  rpc GetTask (GetTaskRequest) returns (TaskResponse);
+  rpc ListTasks (ListTasksRequest) returns (stream TaskResponse);
+}
+
+message GetTaskRequest {
+  int32 id = 1;
+}
+
+message TaskResponse {
+  int32 id = 1;
+  string title = 2;
+  bool completed = 3;
+}
+
+message ListTasksRequest {}

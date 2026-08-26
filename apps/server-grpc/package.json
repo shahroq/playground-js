@@ -3,7 +3,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun --watch src/server.ts"
+    "dev:server": "bun --watch src/server.ts",
+    "dev:client": "bun --watch src/client.ts"
   },
   "devDependencies": {
     "@types/bun": "latest"

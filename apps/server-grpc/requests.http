@@ -1,1 +1,5 @@
 @baseUrl = http://localhost:3031
+
+### home
+GET {{baseUrl}} HTTP/1.1
+
