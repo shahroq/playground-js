@@ -1,5 +1,5 @@
 import { streamText } from "ai";
-import { getAIModel } from "../models";
+import { getAIModel } from "./models";
 
 const prompt = process.env.AI_SDK_PROMPT ?? "Hi!";
 const model = getAIModel();

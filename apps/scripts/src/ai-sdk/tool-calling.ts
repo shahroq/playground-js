@@ -1,6 +1,6 @@
 import { stepCountIs, streamText } from "ai";
-import { getAIModel } from "../models";
-import { getTools } from "../tools";
+import { getAIModel } from "./models";
+import { getTools } from "./tools";
 
 const prompt = "What time is it now?";
 const model = getAIModel();

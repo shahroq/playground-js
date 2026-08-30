@@ -1,7 +1,7 @@
 import { generateText } from "ai";
-import { getAIModel } from "../models";
+import { getAIModel } from "./models";
 
-const prompt = process.env.AI_SDK_PROMPT ?? "Hi!";
+const prompt = "Hi!";
 const model = getAIModel();
 
 const main = async () => {

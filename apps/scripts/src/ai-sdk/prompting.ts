@@ -1,5 +1,5 @@
 import { streamText } from "ai";
-import { getAIModel } from "../models";
+import { getAIModel } from "./models";
 
 const model = getAIModel();
 const INPUT = `Do some research on monitors and how can I minimize the eye fatigue using them?`;

@@ -5,7 +5,11 @@
   "private": true,
   "scripts": {
     "test": "bun test",
-    "test:watch": "bun test --watch"
+    "test:watch": "bun test --watch",
+    "cli": "bun run index.ts"
+  },
+  "dependencies": {
+    "@jsp/shared": "workspace:*"
   },
   "devDependencies": {
     "@types/bun": "latest"

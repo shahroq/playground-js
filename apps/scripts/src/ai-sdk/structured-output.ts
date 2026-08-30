@@ -1,6 +1,6 @@
 import { generateText, Output } from "ai";
 import { z } from "zod";
-import { getAIModel } from "../models";
+import { getAIModel } from "./models";
 
 const prompt =
   process.env.AI_SDK_PROMPT ??

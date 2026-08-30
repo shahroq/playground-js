@@ -12,7 +12,7 @@ import {
 import { getAIModel } from "../../models";
 import { getTools, allTools } from "../../tools";
 import { isDev, logFile, logFileMethod } from "@/lib/env";
-import { logToFile } from "@/lib/log-to-file";
+import { logToFile } from "@jsp/shared/utils";
 
 export type ChatTools = InferUITools<typeof allTools>;
 export type ChatMessage = UIMessage<never, UIDataTypes, ChatTools>;

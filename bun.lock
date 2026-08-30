@@ -242,6 +242,9 @@
     },
     "apps/scripts": {
       "name": "scripts",
+      "dependencies": {
+        "@jsp/shared": "workspace:*",
+      },
       "devDependencies": {
         "@types/bun": "latest",
       },

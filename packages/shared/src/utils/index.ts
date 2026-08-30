@@ -6,3 +6,4 @@ export * from "./play-sound";
 export * from "./img";
 export * from "./icon";
 export * from "./auth";
+export * from "./log-to-file";
