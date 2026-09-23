@@ -23,7 +23,7 @@ function addTask(): void {
     <div class="mb-3">
       <label for="task" class="form-label">New Task</label>
 
-      <input id="task" v-model="newTask" name="task" type="text" class="form-control" />
+      <input id="task" v-model.trim="newTask" name="task" type="text" class="form-control" />
     </div>
 
     <button type="submit" class="btn btn-primary">Add Task</button>
